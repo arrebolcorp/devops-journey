@@ -22,3 +22,10 @@
 
 5. For the end of this lesson, I installed a VirtualBox Guest Addiotions on my Ubuntu. Why? Because, VirtualBox Guest Aditions is a set of tools that improve your working experience between the Host and Guest machine. With these, I can transfer files between both these machines and also features like adaptive display and clipboard sharing. When completed the installation to next is reboot using "sudo reboot"
 <img width="637" height="374" alt="image" src="https://github.com/user-attachments/assets/8bca283e-ec9b-4ee3-ab07-d3471cff8c82" />
+
+6. After install the VirtualBox Guest Addtions I gonna configurate a Shared Clipboard and Drag and Drop (after is important execute a autorush.sh from VBox_GAs_7.x.x as a software).
+<img width="636" height="373" alt="image" src="https://github.com/user-attachments/assets/be1e008b-a5e7-4bbd-8405-7c5b79a67684" />
+<img width="640" height="377" alt="image" src="https://github.com/user-attachments/assets/ea228323-90f5-48d2-9ede-b6657345069a" />
+<img width="527" height="296" alt="image" src="https://github.com/user-attachments/assets/592db213-f16c-4e90-b668-4e3864692352" />
+
+And it's all for today:)
