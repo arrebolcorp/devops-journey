@@ -1,11 +1,14 @@
 ##What is a distribution?
+Is an operating system composed of the Linux Kernel, GNU tools, additional software and package manager. It may also also display server and desktop environment to be used as a regular OS.
+The term distribution in Linux is because an entity like Ubuntu or Debian 'distributes' the linux kernel with all the necessary software and utilities (like network manager, package manager, desktop manager, e.t.c.) so that it can be used as a OS.
 
 ##What does LTS mean?
+LTS means Long-Term Support, is a release with along sopport window.
 
 ##What do Guest Additions do?
+Guest Additions is an external package designed to be installed inside a VirtualBox guest OS. It enables closer integration between the host and guest OSes, including features such as shared folder, custom video drivers, seamless window mode, and more.
 
-
-##My first VM of this course:
+##My first VM on this course:
 
 1. I configured the vHardware. In this case in the next SS show my configuration.
 <img width="434" height="375" alt="image" src="https://github.com/user-attachments/assets/17a680c5-9e65-4b19-b0e3-9b19e28d64bb" />
@@ -27,5 +30,8 @@
 <img width="636" height="373" alt="image" src="https://github.com/user-attachments/assets/be1e008b-a5e7-4bbd-8405-7c5b79a67684" />
 <img width="640" height="377" alt="image" src="https://github.com/user-attachments/assets/ea228323-90f5-48d2-9ede-b6657345069a" />
 <img width="527" height="296" alt="image" src="https://github.com/user-attachments/assets/592db213-f16c-4e90-b668-4e3864692352" />
+
+7. If you have configurate a password to share files in the guest you can use this line 'sudo gpasswd --add $USER vboxsf'
+<img width="1279" height="745" alt="image" src="https://github.com/user-attachments/assets/03271c1c-35b3-440d-a8ea-f5d6bb4654c8" />
 
 And it's all for today:)
