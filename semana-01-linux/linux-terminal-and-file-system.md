@@ -5,7 +5,7 @@ When working in a Linux terminal, your command prompt is typically divided into 
 
 $ indicates a normal user prompt.
 
-# indicates the root (admin) user.
+-# indicates the root (admin) user.
 
 As we saw earlier, running sudo whoami prints root.
 
@@ -91,3 +91,110 @@ Short for variable. This directory stores files that change frequently during sy
 
 /opt
 Short for optional. This is where third-party or optional software is installed, keeping large or proprietary programs (like Google Chrome under /opt/google/chrome) separate from the core system directories. This keeps things organized, makes uninstallation easier, and prevents software from interfering with standard Linux file structure rules. Like most system directories, modifying it requires administrative privileges.
+
+## Practice and review command lines
+
+The next step, I use the follow command lines for practice the navigation, use a commands for files and folders, reading files, system info, help and administration.
+I gonna to in order, Claude helps me giving me a table with some commands lines for practice the fundamental.
+
+## pwd
+pwd helps to show up the full path of the current directory, in this case, I stay in /run/media/vboxuser/VBox_GAs_7.2.8
+<img width="239" height="71" alt="image" src="https://github.com/user-attachments/assets/8744656c-4172-4bcd-b4bb-9ef40ebb9ab6" />
+
+## ls
+This command line shows lists files and folders, you can add -a for show up a hidden files, -h for readable sizes and the -l is for details. 
+<img width="199" height="68" alt="image" src="https://github.com/user-attachments/assets/c4b70a18-526e-47fc-a3b9-cb378bd5e854" />
+<img width="183" height="77" alt="image" src="https://github.com/user-attachments/assets/bcbba963-6513-4ab8-826c-81fe82ccaed0" />
+<img width="224" height="125" alt="image" src="https://github.com/user-attachments/assets/768c0d9d-8b5b-4828-addf-3f2d01ad68b3" />
+
+## cd
+This the most common command line I guess. It helps us to change directory, .. for up one level, ~ or no argument for home, - previous directory. cd helps to move on the directories in the system.
+<img width="218" height="175" alt="image" src="https://github.com/user-attachments/assets/99728f7d-2e49-402e-881f-b3aa233a88c9" />
+
+## mkdir
+Arrive to the commands for files and folders and start with mkdir, this command line helps us to create folders and if I add -p also creates parent folders. For example, mkdir -p devops-lab/notes
+<img width="220" height="171" alt="image" src="https://github.com/user-attachments/assets/5e061116-d3ba-4533-b589-761f1370de34" />
+
+## touch
+This is so easy, helps us to create empy file, for example, touch notes-demo.txt
+<img width="263" height="188" alt="image" src="https://github.com/user-attachments/assets/1669ce8f-f7ee-4824-88ff-fe29a3c4719f" />
+
+## cp
+cp helps us to copy files and if I add -r copy folders. For example cp -r notes backup
+<img width="283" height="189" alt="image" src="https://github.com/user-attachments/assets/d188c6d3-ea3e-45d3-b232-ba90b61e4de4" />
+
+##mv
+This command has two functions, to move or to rename a file. For example, mv notes-demo.txt notes-demo2.txt
+<img width="230" height="178" alt="image" src="https://github.com/user-attachments/assets/34a38c4f-b6f7-4c9d-bf3b-a5e75ee6e14d" />
+
+## rm 
+This we have a command line so important and we can use with a lot caution. This command line helps us to delete with NO TRASH, we can add -r for folders or -i for ask first. For example, rm -i notes-demo2.txt
+NOTE: For my case I need to install rn with the allowing command line 'sudo apt install trn4', and as I have a user password I should put in.
+
+## cat
+The next command line is cat, it helps to prints the whole file. For example cat /etc/os-release
+<img width="233" height="178" alt="image" src="https://github.com/user-attachments/assets/8b1061a9-0b52-4682-a8a5-aa41c3f20372" />
+
+## less
+The function for this command line is for showing a file page by page, you should add /text to search and q to quit.
+For example, less /var/log/dpkg.log
+<img width="218" height="185" alt="image" src="https://github.com/user-attachments/assets/c5be5d73-1bdb-4f6a-95ec-bd4b7433c44e" />
+
+## head
+This command has a similar function that less, but head helps us for showing the first lines on the any file, and if you add a -n sets how many lines you should read. For example, head -n 5 /var/log/dpkg.log
+<img width="242" height="182" alt="image" src="https://github.com/user-attachments/assets/0fcc064b-67c5-4a5d-a674-fa8a2bf6c93d" />
+
+## tail
+Is the oppose of head, shows the last lines and the -n have the same function. For example, tail -n 5 /var/log/dpkg.log
+<img width="232" height="178" alt="image" src="https://github.com/user-attachments/assets/0332a528-a290-4853-a4b9-3ebf5eaa244b" />
+
+## whoami
+This command line shows the current user.
+<img width="222" height="175" alt="image" src="https://github.com/user-attachments/assets/8e2f30ac-2219-49b1-a324-885cd505ca86" />
+
+## uname
+uname have a function for showing system info, and if you add -r shows the kernel version and -a for shows everything.
+For example, uname -r
+<img width="219" height="164" alt="image" src="https://github.com/user-attachments/assets/f6541883-dda6-4d76-818c-2f46a34aadfd" />
+
+## lsb_release -a
+This important to learn because shows the ubuntu distribution and version. 
+<img width="218" height="170" alt="image" src="https://github.com/user-attachments/assets/5eb09cbf-1073-408a-bee6-0b443e29983a" />
+
+## df -h
+This command line helps us to show disk space for partition. 
+<img width="215" height="158" alt="image" src="https://github.com/user-attachments/assets/e17532a6-ea9a-47f7-b59a-43ace526cb7b" />
+
+## free -h
+This command line helps us to show used and free RAM.
+<img width="213" height="170" alt="image" src="https://github.com/user-attachments/assets/980e5265-e449-4c52-8e30-3bed3aacce49" />
+
+## du -sh 
+This command helps up to show the total size of a folder.
+<img width="227" height="169" alt="image" src="https://github.com/user-attachments/assets/6c6c5a1f-7306-40a2-8fdf-a18e2ac46f8c" />
+
+## man
+This command is important, because shows the manual for a command (press q to quit). For example man ls
+
+## --help
+This command helps us to print a quick summary of a command's options. For example, ls --help
+<img width="216" height="166" alt="image" src="https://github.com/user-attachments/assets/99920e84-c6a3-40b5-8505-14898f3eb8c2" />
+
+## sudo
+This is a lot important command line because runs one command with admin rights. For example, sudo whoami
+<img width="212" height="164" alt="image" src="https://github.com/user-attachments/assets/ce330591-e607-47ff-a111-9dfe6830d6ff" />
+
+## sudo apt update
+This command line helps us to refresh the list of available packages. For example, sudo apt update
+<img width="213" height="164" alt="image" src="https://github.com/user-attachments/assets/a58dade1-4e40-4f6b-969a-3f7dc86532f7" />
+
+## sudo apt install
+This command has a funtion to install a package. For example, I gonna to install a package named tree, this package helps us for illustrate a directory in tree form.  sudo apt install tree
+<img width="220" height="172" alt="image" src="https://github.com/user-attachments/assets/fdd2ad32-2fab-4e1c-86c3-db0c35b3b088" />
+
+## history
+And, the last one. History helps us for print the list commands you have typed.
+<img width="397" height="257" alt="image" src="https://github.com/user-attachments/assets/d1a5ad76-dc45-4b68-a85a-43b0ccb05b91" />
+<img width="397" height="260" alt="image" src="https://github.com/user-attachments/assets/a99be501-7df8-40cf-ad13-a5f41f93d39f" />
+
+And it's all for today, tomorrow I follow the next note class. See you 
