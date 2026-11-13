@@ -20,14 +20,10 @@ Remember that $ in the previous class.
 ## apt vs apt-get
 apt is more user-friendly while apt-get its output format is more stable across versions.
 
-## What's new in AOT on Ubuntu 26.04
-  Introduces several important change. For exapmle:
-  -- Solver3 is the default - Is a new dependency resolver and now is enabled by default for all apt CLI operations. Use a SAT-solver-inspired approach that produces faster and more predictable results.
-  -- DEB822 source format by default - Is a repository that are now configured in .sources files using the structured DB822 format rather than the legacy ine-line .list format.
-  -- apt why and apt why-not - is the new diagnostic subcommands that explain why a package is or is not select for installation, this use a solver3's for trace a decision.
-  -- Repository filtering with Include/Exclude - DEB822 source file options shows the allowlist or denylist of specific package from a repository without complex rules.
-  -- apt modernize-sources - this command is a migration tool that converts legacy .list files to the DEB822 .sources format automatically.
-  -- Scriter cryptographic policies - DSA keys and RSA keys smaller than 2048 bits are reject.
+## What's new in APT on Ubuntu 26.04
+Default Solver3: Adopts the faster, SAT-solver-inspired dependency resolver for all apt CLI operations.
+DEB822 Format: Switches to the structured .sources format by default, complete with automated migration (apt modernize-sources) and repository filtering.
+New Tools & Security: Introduces apt why/why-not diagnostic subcommands and enforces stricter cryptographic policies against weak keys.
 
 
   ## Essential APT commands for Ubuntu 26.04
@@ -40,7 +36,7 @@ On top, I wrote some basic commands, now I write some ones more.
 -- if you need install a specific version of a package we can use ---> $ sudo apt install package-name=version
 
 ## Removing packages
-atp has two ways to remove packages and one combination. 
+apt has two ways to remove packages and one combination. 
 --- $ sudo apt remove package-name and $sudo apt purge package-name <--- those commands lines have a different function, remove only uninstall the package but keeps the configuration files while purge remove both.
 Usually we have to use $sudo apt autoremove for clean some dependencies that may no longer be needed.
 
@@ -58,7 +54,7 @@ $ apt show package-name
 
 ## Listing packages
 The same case of searching packages, don't use sudo.
-- Shows all installed packages on my system: $ apt lis --installed
+- Shows all installed packages on my system: $ apt list --installed
 - Shows all packages that needs have upgrade o have a upgrade available: $ apt list --upgradable
 - Shows the lista of available version of a specific package: $ apt list -a package-name
 
@@ -68,20 +64,11 @@ For this version of Ubuntu we may need to add third-party repositories to access
 -- Repository Source Files Ubuntu 26.04 <--- the repository sources are stored in the /etc/apt/sources.list.d/ directory. 
 The primary system source files is ---> /etc/apt/sources.list.d/ubuntu.sources <--- the file uses DEB822 format.
 
-## Adding a Third-Party Repository
-To add a third-party repository I need create a new .sources file in  /etc/apt/sources.list.d/ and we have to import the repository's GPG key. Let's scrip! 
+## Third-Party Repository
+The Third-Party repository is a external storage that packages apps. packages, libraries for free develpers, communities, enterprises, is a not official medio on OS.
+I investigated and see that some examples are: Dockers and kubernetes, PPA and EPEL. 
 
--Step 1 I gonna to download the GPG key for packages authentication. Download it an store it in /usr/share/keyrings/:
-$ wget -qO- https://example.com/repo-key.gpg | sudo tee /usr/share/keyrings/example-keyring.gpg > /dev/null
-
--Step 2 I gonna to create .sources file: Create a new DEB822 format source file:
-$ sudo nano /etc/apt/sources.list.d/example.sources
-and gonna add repository definitions
-Types, URIs, Suites, Components, Signed-By;
-
--Step 3 Update the package index using $ sudo apt update
-
-##VIM 
+## VIM 
 Is a advanced editor of text. It main funtions are:
 1. Manage servers: Allows editing configutation files on the system directly by SSH and don't need a graphic interface
 2. Programming and develp: The developers use this for write code in Phyton, C, JavaScrip or PHP lenguage.
