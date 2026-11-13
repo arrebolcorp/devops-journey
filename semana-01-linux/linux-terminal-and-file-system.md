@@ -128,8 +128,7 @@ This command has two functions, to move or to rename a file. For example, mv not
 <img width="230" height="178" alt="image" src="https://github.com/user-attachments/assets/34a38c4f-b6f7-4c9d-bf3b-a5e75ee6e14d" />
 
 ## rm 
-This we have a command line so important and we can use with a lot caution. This command line helps us to delete with NO TRASH, we can add -r for folders or -i for ask first. For example, rm -i notes-demo2.txt
-NOTE: For my case I need to install rn with the allowing command line 'sudo apt install trn4', and as I have a user password I should put in.
+This we have a command line so important and we can use with a lot caution. This command line helps us to delete with NO TRASH, we can add -r for folders or -i for ask first. For example, rm -i notes-demo2.txt; if I want remove a folder I type rm -ri + folder name
 
 ## cat
 The next command line is cat, it helps to prints the whole file. For example cat /etc/os-release
