@@ -2,7 +2,7 @@
 
 ## Navigation
 
-| Command | What it does | Example I ran | Gotcha |
+| Command | What it does | Example I ran | Gotcha |        
 |---|---|---|---|
 | `pwd` | Prints the full path of the folder that I am currently in. | `pwd` → `/home/vboxuser/devops-lab/week1-lab`  <img width="852" height="326" alt="image" src="https://github.com/user-attachments/assets/5c13fbaa-10e0-413a-8c38-0f2c400b6327" /> 
 | Always run this before `mv`, `cp`, or `rm` to avoid modifying the wrong folder. |
