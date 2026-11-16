@@ -2,8 +2,8 @@
 
 ## Navigation
 
-| Command | What it does | Example I ran | Gotcha |        
-|---|---|---|---|
+| Command | What it does | Example I ran |     
+|---|---|---|
 | `pwd` | Prints the full path of the folder that I am currently in. | `pwd` → `/home/vboxuser/devops-lab/week1-lab`  <img width="852" height="326" alt="image" src="https://github.com/user-attachments/assets/5c13fbaa-10e0-413a-8c38-0f2c400b6327" /> 
 | Always run this before `mv`, `cp`, or `rm` to avoid modifying the wrong folder. |
 | `ls` | Shows visible list files and folders in the current directory. | `ls` → `backup config logs notes scripts` <img width="1044" height="310" alt="image" src="https://github.com/user-attachments/assets/8ccd73dc-75ce-408c-b920-873f00f9bd00" /> 
