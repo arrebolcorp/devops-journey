@@ -25,8 +25,8 @@
 
 ## Files and folders
 
-| Command | What it does | Example I ran | Gotcha |
-|---|---|---|---|
+| Command | What it does | Example I ran |
+|---|---|---|
 | `mkdir` | Creates a new empty directory. | `mkdir {config,logs,scripts,backup,notes}` <img width="632" height="63" alt="image" src="https://github.com/user-attachments/assets/7b59c70c-4029-4e40-a874-3b710914c5aa" /> 
  | Fails if parent folders do not exist yet (use `-p` for nested folders). |
 | `mkdir -p` | Creates nested directories all at once without errors. | `mkdir -p ~/devops-lab/week1-lab`  <img width="572" height="65" alt="image" src="https://github.com/user-attachments/assets/3f4a73ce-1f28-42bb-af6b-7164c192cc92" /> 
@@ -46,8 +46,8 @@
 
 ## Reading 
 
-| Command | What it does | Example I ran | Gotcha |
-|---|---|---|---|
+| Command | What it does | Example I ran |
+|---|---|---|
 | `cat` | Prints the entire content of a file directly to the terminal. | `cat config/os-release` <img width="753" height="260" alt="image" src="https://github.com/user-attachments/assets/74a1e303-3251-4222-b3c5-3c4e66f3a451" /> 
 | Avoid using `cat` on huge files like `/etc/services` because it floods the screen. |
 | `less` | Opens a file in a scrollable viewer one page at a time. | `less /var/log/apt/history.log` <img width="1153" height="852" alt="image" src="https://github.com/user-attachments/assets/e9e7ec2f-bbca-4de1-bb70-d933df137e87" /> 
@@ -55,8 +55,8 @@
 
 ## System info
 
-| Command | What it does | Example I ran | Gotcha |
-|---|---|---|---|
+| Command | What it does | Example I ran |
+|---|---|---|
 | `whoami` | Shows my current effective username. | `whoami` → `vboxuser` <img width="421" height="82" alt="image" src="https://github.com/user-attachments/assets/bf5436ea-2918-4cc1-95f4-85066207a16b" /> 
 | Running `sudo whoami` returns `root`. |
 | `hostname` | Displays the network name of the machine. | `hostname` → `ubuntu-lab` <img width="380" height="104" alt="image" src="https://github.com/user-attachments/assets/7089b5c6-4174-4bd1-942f-53f6c0ab312a" /> 
@@ -76,8 +76,8 @@
 
 ## Help
 
-| Command | What it does | Example I ran | Gotcha |
-|---|---|---|---|
+| Command | What it does | Example I ran |
+|---|---|---|
 | `man` | Opens the full official manual page for a command. | `man ls` <img width="1170" height="896" alt="image" src="https://github.com/user-attachments/assets/aebaa05d-0a71-48ec-9915-f42979118255" /> 
 | Do not put a hyphen before the command name (`man -ls` fails). |
 | `--help` | Prints a quick summary of flags and usage directly in the terminal. | `ls --help` <img width="1164" height="868" alt="image" src="https://github.com/user-attachments/assets/a03a0d6b-a66d-4ef4-a73d-2e9bb5d9faad" /> 
@@ -85,8 +85,8 @@
 
 ## Packages (apt and dpkg)
 
-| Command | What it does | Example I ran | Gotcha |
-|---|---|---|---|
+| Command | What it does | Example I ran |
+|---|---|---|
 | `sudo apt update` | Refreshes the local list of available packages from repositories. | `sudo apt update` <img width="805" height="248" alt="image" src="https://github.com/user-attachments/assets/111432b1-1181-4125-9c14-9bbb15fd079e" /> 
 | Updates the catalog only; it does not upgrade installed software. |
 | `sudo apt install` | Downloads and installs a new package and its dependencies. | `sudo apt install htop` <img width="820" height="465" alt="image" src="https://github.com/user-attachments/assets/dcc888c4-34f8-4e82-aba0-acbf06b60a0e" /> 
@@ -100,8 +100,8 @@
 
 ## Vim
 
-| Command | What it does | Example I ran | Gotcha |
-|---|---|---|---|
+| Command | What it does | Example I ran |
+|---|---|---|
 | `vim <file>` | Opens or creates a file in the Vim terminal editor. | `vim notes/system-report.txt` <img width="1020" height="875" alt="image" src="https://github.com/user-attachments/assets/3d1477af-5672-4d16-942e-92c28ec6d319" /> 
 | Opens in Normal mode; you cannot type text until you press `i`. |
 | `i` / `Esc` | `i` enters Insert mode to type; `Esc` returns to Normal mode. <img width="766" height="318" alt="image" src="https://github.com/user-attachments/assets/d4e4eb76-8256-4a0c-b7f1-d6e9ed779d40" /> 
