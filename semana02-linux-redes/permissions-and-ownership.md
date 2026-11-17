@@ -1,6 +1,6 @@
 # Linux Permissions & Ownership
 
-## Core Concepts (Write in your own words)
+## Core Concepts
 
 | Concept | My Explanation |
 | :--- | :--- |
@@ -27,7 +27,7 @@
 
 ---
 
-## Quiz Answers (Write in your own words)
+## Quiz Answers
 
 | # | Question | My Answer |
 | :--- | :--- | :--- |
