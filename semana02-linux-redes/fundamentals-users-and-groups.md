@@ -14,15 +14,6 @@
 
 ---
 
-## Lab Questions & Answers
-
-| # | Lab / Question | Explanation |
-| :--- | :--- | :--- |
-| **1** | Find your username, UID and groups in one command. Which group gives you `sudo`? | *The command line is in one line* <img width="1148" height="93" alt="image" src="https://github.com/user-attachments/assets/cfb84d20-50d0-4438-90e6-89a9dd654339" /> |
-| **2** | Find your own line in `/etc/passwd` and explain its 7 fields. *(Hint: separator is `:`)* | *boxuser:x:1000:1000:vboxuser:/home/vboxuser:/bin/bash* My user in Home with vboxuser has been normal user. Ando shows the name, UID, GID, personal folder and the shell assign. <img width="567" height="72" alt="image" src="https://github.com/user-attachments/assets/bd3ac912-0bf8-4305-b1d5-240328873681" /> |
-
----
-
 ## Lab Evidence & Command Execution
 
 | Command / Step | My Notes / Explanation | Screenshot |
