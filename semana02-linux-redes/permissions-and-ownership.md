@@ -1,0 +1,38 @@
+# Linux Permissions & Ownership
+
+## Core Concepts (Write in your own words)
+
+| Concept | My Explanation |
+| :--- | :--- |
+| **Why Permissions Matter** | Permissions are the key tool to manage system security well. They control who can view, modify, or execute files and directories, preventing unauthorized access. |
+| **Reading `ls -l`** | The first character shows the file type (`-` for a regular file, `d` for a directory). Characters 2, 3, and 4 represent the owner permissions (`rwx`), characters 5, 6, and 7 represent the group permissions, and characters 8, 10 represent others. |
+| **Permission Bits (Octal)** | Each permission has a numeric value: `r` (read) = `4`, `w` (write) = `2`, `x` (execute) = `1`, and `-` = `0`. We add the numbers for each group (owner, group, others). For example: `644` (`rw-r--r--`) is for standard text files, `755` (`rwxr-xr-x`) is for executable scripts and directories, and `600` (`rw-------`) is for private files like SSH keys where only the owner has access. |
+| **Class Evaluation Order** | Linux checks permission classes in a strict order and applies **only one**: first it checks if you are the owner; if not, it checks if you belong to the file's group; otherwise, it applies the "others" permissions. Because it stops at the first match, an owner with `000` or `077` permissions will get `Permission denied` (locked out) even if the group or others have full access. |
+| **Directory Permissions** | On directories, permissions work differently than on files: `r` (read) lets you list the file names inside (`ls`), `x` (execute) lets you enter or traverse the directory (`cd`), and both `w` + `x` together are required to create, rename, or delete files inside that folder. |
+| **Golden Rules** | 1. **Never use `chmod 777`**, because it gives read, write, and execute permissions to everyone on the system (a major security risk).<br>2. **Be very careful with recursive (`-R`) changes** so you don't accidentally break system or folder permissions.<br>3. **Only `root` (`sudo`) can transfer file ownership** to another user using `chown`. |
+
+---
+
+## Step-by-Step Lab Practice & Evidence
+
+| Step | Command(s) Executed | My Explanation & What Happened | Screenshot |
+| :--- | :--- | :--- | :--- |
+| **1. Setup & Decode `ls -l`** | `mkdir -p ~/devops-lab/week2-lab/perm-lab`<br>`touch notes.txt`<br>`echo 'echo "Hello everyone!"' > hello.sh`<br>`mkdir shared`<br>`ls -l` | The `ls -l` output shows that `notes.txt` and `hello.sh` start with `-` (regular files) and have `rw-r--r--` permissions. The `shared` directory starts with `d` and shows directory permissions, allowing the owner to read, write, and execute. |<img width="613" height="105" alt="image" src="https://github.com/user-attachments/assets/d98cfa00-096a-44bb-9761-e9305813fc89" /> <img width="782" height="133" alt="image" src="https://github.com/user-attachments/assets/4bced83c-d554-494e-b185-03c160cb470d" /> |
+| **2. Execute Script (`+x`)** | `./hello.sh`<br>`chmod u+x hello.sh`<br>`./hello.sh` | Running `./hello.sh` first returned a `Permission denied` error because the file lacked execution bits. Adding `u+x` with `chmod` granted execute permission to the user, allowing the script to run successfully. |<img width="634" height="130" alt="image" src="https://github.com/user-attachments/assets/7f94170d-d42e-4c35-b40f-927805c8c8b4" /> |
+| **3. Predict & Verify Octal** | `chmod 600 notes.txt`<br>`chmod 755 notes.txt`<br>`chmod 640 notes.txt`<br>`stat -c '%a %A %U:%G %n' notes.txt` | Octal values convert permissions directly: `600` means `rw-------`, `755` means `rwxr-xr-x`, and `640` means `rw-r-----`. The `stat` command accurately verified the octal code, symbolic permissions, owner, and group. | <img width="770" height="273" alt="image" src="https://github.com/user-attachments/assets/b69dc662-f2a5-4068-abd8-7de3f87e7e6b" /> |
+| **4. Directory Bits (`r` vs `x`)** | `chmod u-x shared` → `cd shared` / `ls shared` / `cat`<br>`chmod u+x shared && chmod u-r shared` → `cd` / `ls` | Removing the execute permission (`-x`) blocked `cd` and `cat` access entirely, even though read permission was present. Removing read (`-r`) while keeping execute (`+x`) blocked the file name list (`ls`), but still allowed entering (`cd`) into the directory if you knew the exact file name. | <img width="686" height="175" alt="image" src="https://github.com/user-attachments/assets/862d7501-be47-4b3b-99ba-53996c3fb43e" /> <img width="573" height="94" alt="image" src="https://github.com/user-attachments/assets/189e0410-b9ee-4b26-b8bf-e23ae3f36f07" /> |
+| **5. Group Sharing (`/srv`)** | `ls -ld ~`<br>`sudo mkdir -p /srv/shared`<br>`sudo chgrp devteam /srv/shared`<br>`chmod 770 /srv/shared`<br>`sudo -u labuser touch /srv/shared/nuevo.txt` | Home directory permissions (`750`) blocked `labuser` access initially. After configuring the group to `devteam` with `770` permissions, shared members gained access. `nuevo.txt` inherited `labuser` as its primary group because files take the creator's default group unless a setgid bit is set. | <img width="545" height="64" alt="image" src="https://github.com/user-attachments/assets/57314d99-bab6-4bda-872b-7bfa15ec70af" /> |
+| **6. Ownership Transfer** | `sudo chown labuser /srv/shared/info.txt`<br>`sudo -u labuser chown vboxuser /srv/shared/info.txt` | Attempting to change ownership as a regular user (`labuser`) failed with an `Operation not permitted` error. Only the `root` user (`sudo`) has the privilege to transfer file ownership between users in Linux. |<img width="595" height="283" alt="image" src="https://github.com/user-attachments/assets/2a7e4ffa-c0a8-448c-bd92-0000839c9993" /> |
+| **7. Cleanup & Orphan UID Case** | `sudo userdel -r labuser`<br>`ls -l /home`<br>`sudo rm -rf /home/labuser`<br>`getent passwd labuser`<br>`getent group devteam qa` | In this example, `userdel -r` printed a warning that the home directory was not owned by `labuser` (because of a UID mismatch from an older directory with UID `1001` versus the new user's UID `1002`), so I removed it manually. |<img width="521" height="378" alt="image" src="https://github.com/user-attachments/assets/6b2cf04a-74cd-46e2-b4f9-77b832451970" /> |
+
+---
+
+## Quiz Answers (Write in your own words)
+
+| # | Question | My Answer |
+| :--- | :--- | :--- |
+| **1** | What does `drwxr-x---` mean for owner, group and others? | It means it is a directory (`d`). The owner has full read, write, and execute permissions (`rwx`). The group members have read and execute permissions (`r-x`). Others have no permissions at all (`---`). |
+| **2** | Why can’t you `cd` into a directory that has `r` but no `x`? | Because the execute (`x`) permission on a directory acts as a traverse or search right. Without it, you cannot enter the folder or access paths inside it, even if you can read its name list. |
+| **3** | Which number is `rw-r-----`? | It is `640`. (`rw-` = 4+2+0 = 6, `r--` = 4+0+0 = 4, `---` = 0). |
+| **4** | In your Monday notes, why did the leftover folder show `1001`, and what’s the security risk if a new user gets that UID? | It showed the numeric UID `1001` because the user account was deleted, leaving an orphan file or folder. If a brand-new user is later created and gets assigned that exact same UID (`1001`), they will automatically inherit full ownership of all those old files, creating a significant security and privacy risk. |
+| **5** | Why isn’t `chmod 777` the fix for “Permission denied”? | Because `chmod 777` gives read, write, and execute permissions to everyone on the system. This creates a severe security vulnerability, allowing any local user or potential attacker to modify or delete critical files. You should always use the principle of least privilege instead. |
