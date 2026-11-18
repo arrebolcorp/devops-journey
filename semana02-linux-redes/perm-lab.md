@@ -28,3 +28,45 @@
 | **9. Owner Lockout Test** | `chmod 077 script-prueba.sh`<br>`cat script-prueba.sh` | Removed all owner permissions (`0`) while granting full access (`77`) to group and others. Reading the file failed with `Permission denied` because Linux checks the owner class first. |<img width="519" height="59" alt="image" src="https://github.com/user-attachments/assets/17524959-7d36-4043-9670-c2b04521ea4b" /> |
 | **10. Restore Permissions** | `chmod 644 script-prueba.sh`<br>`cat script-prueba.sh` | Restored standard file permissions (`-rw-r--r--`), allowing the owner to read the file normally again. | <img width="510" height="40" alt="image" src="https://github.com/user-attachments/assets/67f6ef4e-7858-49a5-86c9-0e768ae8b016" /> |
 
+# Week 2 Lab: Linux Permissions & CI/CD Troubleshooting
+
+## Command Reference & Evidence Matrix
+
+| Step | Command | Function | Why in DevOps? | Evidence (Output / Screenshot) |
+| :--- | :--- | :--- | :--- | :--- |
+| **1** | `mkdir -p ~/devops-lab/week2-lab/umask-lab` | Creates nested directories recursively without throwing errors if they already exist. | Ensures idempotency in setup scripts and CI/CD workspace initialization. | `*(Paste output or image link here)*` |
+| **1** | `cd ~/devops-lab/week2-lab/umask-lab` | Changes the current working directory into the lab workspace. | Isolates test artifacts to prevent accidental changes to system or root folders. | `*(Paste output or image link here)*` |
+| **1** | `umask` | Displays the current user file-creation mode mask. | Audits the default security baseline applied to newly created logs, configs, and artifacts. | `0022` *(or your output)* |
+| **1** | `(umask 022; touch f1; mkdir d1); (umask 002; touch f2; mkdir d2); (umask 077; touch f3)` | Runs subshells with temporary `umask` values to create test files and directories. | Tests permission isolation (e.g., `077` for secrets/SSH keys vs. `002` for shared team repos) without altering the global session. | `*(Paste output or image link here)*` |
+| **1** | `ls -ld f* d*` | Lists detailed metadata and permission bits for the matching files and directories themselves (`-d`). | Verifies that automated builds generate artifacts with the expected read/write/execute bits. | `-rw-r--r-- f1`, `drwxr-xr-x d1`, `-rw-rw-r-- f2`, `drwxrwxr-x d2`, `-rw------- f3` |
+| **2** | `echo 'echo hi' > ~/t.sh` | Creates a simple shell script containing a print command inside the home directory. | Simulates a deployment script or build step stored in a specific filesystem path. | `*(Paste output or image link here)*` |
+| **2** | `chmod 755 ~/t.sh` | Grants full permissions (`rwx`) to the owner and read/execute (`r-x`) to group and others. | Standard permission mode required for executable scripts run by automation tools. | `*(Paste output or image link here)*` |
+| **2** | `sudo -u nobody ~/t.sh` | Executes the script impersonating the unprivileged `nobody` user. | Replicates how CI/CD runners (like Jenkins or GitLab Runner) execute jobs under restricted service accounts. | `sudo: unable to execute .../t.sh: Permission denied` |
+| **2** | `id nobody` | Displays the User ID (UID), Group ID (GID), and supplementary groups of `nobody`. | Confirms the exact identity and group memberships a service account possesses when debugging access issues. | `uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)` |
+| **2** | `namei -l ~/t.sh` | Resolves a pathname down to its endpoint, listing owner and permissions for every parent directory. | Quickly pinpoints which parent folder in a deep path lacks execute (`x`) traversal permissions during a `Permission denied` error. | `drwxr-x---` on `/home/<user>` blocking traversal |
+| **2** | `rm ~/t.sh` | Deletes the temporary test script. | Keeps build agents and environments clean after testing or pipeline execution. | `*(Paste output or image link here)*` |
+
+---
+
+## Part A: Tuesday Follow-ups
+
+### Step 1: Default Permission Control with `umask`
+* **Command:** `mkdir -p ~/devops-lab/week2-lab/umask-lab && cd $_`, `umask`, `(umask 022; touch f1; mkdir d1); (umask 002; touch f2; mkdir d2); (umask 077; touch f3)`, `ls -ld f* d*`
+* <img width="499" height="47" alt="image" src="https://github.com/user-attachments/assets/7127be47-fcd6-4f05-a4bf-26e94889b53a" />
+<img width="613" height="133" alt="image" src="https://github.com/user-attachments/assets/865aea3e-7541-4c4f-b731-95e062dfbaf0" />
+
+* **What I saw:**
+  * `umask 022` resulted in `f1` having `-rw-r--r--` (`644`) and `d1` having `drwxr-xr-x` (`755`).
+  * `umask 002` resulted in `f2` having `-rw-rw-r--` (`664`) and `d2` having `drwxrwxr-x` (`775`).
+  * `umask 077` resulted in `f3` having `-rw-------` (`600`), restricting access completely to the owner.
+* **What I learned:** `umask` acts as a security baseline in DevOps pipelines to ensure newly generated artifacts, logs, and configuration files follow the principle of least privilege automatically.
+
+### Step 2: Simulating Restricted CI/CD Runners
+* **Command:** `echo 'echo hi' > ~/t.sh`, `chmod 755 ~/t.sh`, `sudo -u nobody ~/t.sh`, `id nobody`, `namei -l ~/t.sh`, `rm ~/t.sh`
+* **What I saw:** Even though `~/t.sh` had `755` permissions, executing it as `nobody` failed with `Permission denied`. Running `namei -l` revealed that the parent home directory had `drwxr-x---` (`750`) permissions, blocking `nobody` from traversing the path.
+* <img width="631" height="288" alt="image" src="https://github.com/user-attachments/assets/ebcc1cd4-af12-443f-8776-c4c6fa5e53bb" />
+* **What I learned:** A file's own permissions are useless if the service account running a CI/CD job lacks execute (`x`) traversal permissions on every parent directory leading to that file.
+
+### Step 3: Key Takeaways
+* “umask is a **bitmask** that removes permission bits from new files and folders. New files start at **666 (`rw-rw-rw-`)** and new folders at **777 (`rwxrwxrwx`)**. With umask 0002 a new file gets **664 (`-rw-rw-r--`)**, and with 0022 it gets **644 (`-rw-r--r--`)**.”
+* “When Jenkins gets ‘Permission denied’, I check three things: **`ls -l`** shows the file’s owner and mode, **`id`** shows which user and groups run the job, and **`namei -l`** shows the permissions of every folder in the path.”
