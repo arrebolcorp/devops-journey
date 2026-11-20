@@ -21,6 +21,33 @@ We can use `$+number` for generate argument for example; `$1` `$#` `$0`, where `
 | **6. System report v1 (`system-report.sh`)** | `vim system-report.sh` *(add report script)*<br>`chmod u+x system-report.sh`<br>`./system-report.sh` | Built a script that saves date, user, host, OS, disk (`df`), memory (`free`), and top 5 largest items in `~/devops-lab` (`du`) into a dated `.txt` file, then prints it with `cat`. | <img width="659" height="532" alt="image" src="https://github.com/user-attachments/assets/73997a11-82f5-47b3-8247-f7af0cf95fac" /> <img width="703" height="572" alt="image" src="https://github.com/user-attachments/assets/e7f7dbd5-14ad-4705-9705-7172236ae3e8" /> |
 | **7. Add Uptime section** | `vim system-report.sh` *(add `uptime -p` before the last two lines)*<br>`./system-report.sh` | Updated `system-report.sh` to append (`>>`) a new `--- Uptime ---` section using `uptime -p` and ran it again to verify the updated report. | <img width="718" height="654" alt="image" src="https://github.com/user-attachments/assets/ca388863-c250-4114-b831-9ae25b4cfb01" /> <img width="682" height="513" alt="image" src="https://github.com/user-attachments/assets/0a8437ac-44cb-47fd-88c3-639efb072af9" /> |
 
+## Download the example of system-report-*.txt
+[system-report-2026-11-20.txt](https://github.com/user-attachments/files/35156979/system-report-2026-11-20.txt)
+===== System report =====
+Date: Fri Nov 20 03:45:57 AM UTC 2026
+User: vboxuser
+Host: ubuntu-lab
+
+--- OS ---
+Description:	Ubuntu 26.04.1 LTS
+7.0.0-43-generic
+
+--- Disk (/) ---
+/dev/sda2        40G  6.8G   31G  19% /
+
+--- Memory ---
+               total        used        free      shared  buff/cache   available
+Mem:           3.3Gi       1.1Gi       759Mi        28Mi       1.7Gi       2.2Gi
+
+--- 5 biggest items in ~/devops-lab ---
+188K	/home/vboxuser/devops-lab
+84K	/home/vboxuser/devops-lab/week2-lab
+48K	/home/vboxuser/devops-lab/week1-lab
+32K	/home/vboxuser/devops-lab/week2-lab/pipes-lab
+32K	/home/vboxuser/devops-lab/notes
+
+--- Uptime ---
+up 10 minutes
 
 ## Quiz Answers
 
