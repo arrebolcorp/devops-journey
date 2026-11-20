@@ -1,6 +1,6 @@
 # Bash Scripting fundamentals
 Today I introduced in bash scripting fundamentals and I did a practice using a some basic lines for this and I created an account of Digital Ocean for start practicing droplets for the Saturday.
-<img width="532" height="285" alt="image" src="https://github.com/user-attachments/assets/25eeb20d-e476-4367-8533-34c68f11a8e8" />
+
 # Key lines to remember
 ### #!/bin/bash 
 This is the first line in a `.sh` file. This line tells Linux which program runs the file. A `#` it use for starts a coment.
