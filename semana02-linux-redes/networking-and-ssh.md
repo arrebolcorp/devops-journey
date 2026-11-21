@@ -140,7 +140,3 @@ Bonus
    My answer:
 
 
-## 16. Resumen en español
-- Cada comando de la práctica del sábado está en una tabla con su función, su concepto, lo que viste y una columna para la captura (ss).
-- Tapa la IP del droplet y tu IP pública en las capturas, y nunca subas llaves ni la frase de contraseña.
-- Al final: glosario de conceptos, problemas que tuviste, checklist de actividades, costos, quiz y frase de entrevista.
